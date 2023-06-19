@@ -14,10 +14,12 @@ defmodule ElixirTodoAppWeb.Router do
     plug :accepts, ["json"]
   end
 
-  scope "/", ElixirTodoAppWeb do
-    pipe_through :browser
+  scope "/api", ElixirTodoAppWeb do
+    pipe_through :api
 
-    get "/", PageController, :home
+    resources "/lists", ListController do
+      resources "/items", ItemController
+    end
   end
 
   # Other scopes may use custom stacks.
@@ -27,7 +29,6 @@ defmodule ElixirTodoAppWeb.Router do
 
   # Enable Swoosh mailbox preview in development
   if Application.compile_env(:elixir_todo_app, :dev_routes) do
-
     scope "/dev" do
       pipe_through :browser
 
