@@ -22,6 +22,12 @@ defmodule ElixirTodoAppWeb.Router do
     end
   end
 
+  scope "/todo", ElixirTodoAppWeb do
+    pipe_through :browser
+
+    get "/", TodoController, :index
+  end
+
   # Other scopes may use custom stacks.
   # scope "/api", ElixirTodoAppWeb do
   #   pipe_through :api
