@@ -24,16 +24,21 @@ defmodule ElixirTodoAppWeb.ListController do
   def update(conn, %{"id" => id, "list" => list_params}) do
     list = Lists.get_list(id)
 
-    case Lists.update_list(list, list_params) do
-      {:ok, updated_list} ->
-        conn
-        |> put_status(:ok)
-        |> render("show.json", list: updated_list)
+    if list.archived and list_params["title"] do
+      conn
+      |> render("message.json", message: "List is archived, can't update its title")
+    else
+      case Lists.update_list(list, list_params) do
+        {:ok, updated_list} ->
+          conn
+          |> put_status(:ok)
+          |> render("show.json", list: updated_list)
 
-      {:error, changeset} ->
-        conn
-        |> put_status(:unprocessable_entity)
-        |> render("error.json", changeset: changeset)
+        {:error, changeset} ->
+          conn
+          |> put_status(:unprocessable_entity)
+          |> render("error.json", changeset: changeset)
+      end
     end
   end
 end

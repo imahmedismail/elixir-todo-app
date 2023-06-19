@@ -1,4 +1,8 @@
 defmodule ElixirTodoAppWeb.ListJSON do
+  def render("message.json", %{message: message}) do
+    %{message: message}
+  end
+
   def render("index.json", %{lists: lists}) do
     %{data: Enum.map(lists, &render_list/1)}
   end
