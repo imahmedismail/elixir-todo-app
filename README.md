@@ -1,18 +1,30 @@
-# ElixirTodoApp
+# Setup
 
-To start your Phoenix server:
+Install the following versions of tools mentioned:
+```
+elixir          1.14.5-otp-26
+erlang          26.0 
+nodejs          20.2.0 
+```
 
-  * Run `mix setup` to install and setup dependencies
-  * Start Phoenix endpoint with `mix phx.server` or inside IEx with `iex -S mix phx.server`
+Compile the application via:
+```
+mix deps.get
+mix ecto.create
+mix ecto.migrate
+```
 
-Now you can visit [`localhost:4000`](http://localhost:4000) from your browser.
+# Running the App
 
-Ready to run in production? Please [check our deployment guides](https://hexdocs.pm/phoenix/deployment.html).
+If you're done with the above mentioned steps successfully you'll be able to run the project using:
+```
+mix phx.server
+```
 
-## Learn more
+# Testing
 
-  * Official website: https://www.phoenixframework.org/
-  * Guides: https://hexdocs.pm/phoenix/overview.html
-  * Docs: https://hexdocs.pm/phoenix
-  * Forum: https://elixirforum.com/c/phoenix-forum
-  * Source: https://github.com/phoenixframework/phoenix
+You can run the tests for this application using:
+
+```
+mix test
+```
