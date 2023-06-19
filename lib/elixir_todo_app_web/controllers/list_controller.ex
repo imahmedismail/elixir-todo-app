@@ -2,7 +2,7 @@ defmodule ElixirTodoAppWeb.ListController do
   use ElixirTodoAppWeb, :controller
   alias ElixirTodoApp.Lists
 
-  def index(conn, _params) do
+  def index(conn, _params \\ %{}) do
     lists = Lists.list_all()
     render(conn, "index.json", lists: lists)
   end
