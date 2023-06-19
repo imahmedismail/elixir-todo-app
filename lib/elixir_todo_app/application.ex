@@ -17,7 +17,8 @@ defmodule ElixirTodoApp.Application do
       # Start Finch
       {Finch, name: ElixirTodoApp.Finch},
       # Start the Endpoint (http/https)
-      ElixirTodoAppWeb.Endpoint
+      ElixirTodoAppWeb.Endpoint,
+      ElixirTodoApp.Cleanup
       # Start a worker by calling: ElixirTodoApp.Worker.start_link(arg)
       # {ElixirTodoApp.Worker, arg}
     ]
