@@ -27,4 +27,12 @@ defmodule ElixirTodoApp.Items do
     %Item{todo_list_id: list.id}
     |> Item.changeset(attrs)
   end
+
+  def delete_item(%Item{} = item) do
+    Repo.delete(item)
+  end
+
+  def change_item(%Item{} = item, attrs \\ %{}) do
+    Item.changeset(item, attrs)
+  end
 end

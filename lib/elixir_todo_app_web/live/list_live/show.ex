@@ -6,7 +6,6 @@ defmodule ElixirTodoAppWeb.ListLive.Show do
 
   @impl true
   def mount(%{"id" => list_id} = params, _session, socket) do
-    IO.inspect list_id
     response = TeslaClient.get_request(@item_base_url <> "/#{list_id}/items").body |> Jason.decode!()
     {:ok, stream(socket, :item_collection, response["items"] |> convert_list_of_maps())}
   end
