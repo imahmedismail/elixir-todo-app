@@ -32,7 +32,7 @@ defmodule ElixirTodoAppWeb.ListController do
         |> put_resp_content_type("application/json")
         |> json(%{message: "No such list exists"})
 
-      not is_nil(list) and list.archived and list_params["title"] ->
+      not is_nil(list) and list.archived and list_params["title"] != list.title ->
         conn
         |> put_resp_content_type("application/json")
         |> json(%{message: "List is archived, can't update its title"})
