@@ -18,4 +18,12 @@ defmodule ElixirTodoApp.Lists do
     List.changeset(list, attrs)
     |> Repo.update()
   end
+
+  def delete_list(%List{} = list) do
+    Repo.delete(list)
+  end
+
+  def change_list(%List{} = list, attrs \\ %{}) do
+    List.changeset(list, attrs)
+  end
 end

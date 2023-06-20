@@ -26,6 +26,12 @@ defmodule ElixirTodoAppWeb.Router do
     pipe_through :browser
 
     get "/", TodoController, :index
+    live "/list", ListLive.Index, :index
+    live "/list/new", ListLive.Index, :new
+    live "/list/:id/edit", ListLive.Index, :edit
+
+    live "/list/:id", ListLive.Show, :show
+    live "/list/:id/show/edit", ListLive.Show, :edit
   end
 
   # Other scopes may use custom stacks.

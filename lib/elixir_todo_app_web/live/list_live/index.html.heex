@@ -1,0 +1,34 @@
+<.header>
+  Listing List
+  <:actions>
+    <.link patch={~p"/todo/list/new"}>
+      <.button>New List</.button>
+    </.link>
+  </:actions>
+</.header>
+
+<.table
+  id="list"
+  rows={@streams.list_collection}
+  row_click={fn {_id, list} -> JS.navigate(~p"/todo/list/#{list.id}") end}
+>
+  <:col :let={{_id, list}} label="Title"><%= list.title %></:col>
+  <:col :let={{_id, list}} label="Archived"><%= list.archived %></:col>
+  <:action :let={{_id, list}}>
+    <div class="sr-only">
+      <.link navigate={~p"/todo/list/#{list.id}"}>Show</.link>
+    </div>
+    <.link patch={~p"/todo/list/#{list.id}/edit"}>Edit</.link>
+  </:action>
+</.table>
+
+<.modal :if={@live_action in [:new, :edit]} id="list-modal" show on_cancel={JS.patch(~p"/todo/list")}>
+  <.live_component
+    module={ElixirTodoAppWeb.ListLive.FormComponent}
+    id={@list.id || :new}
+    title={@page_title}
+    action={@live_action}
+    list={@list}
+    patch={~p"/todo/list"}
+  />
+</.modal>
