@@ -58,6 +58,12 @@ defmodule ElixirTodoAppWeb.ListLive.FormComponent do
 
   defp save_list(socket, :edit, list_params) do
     case HttpoisonClient.patch_request(@lists_base_url <> "/#{socket.assigns.list.id}", %{"list" => list_params}) |> Jason.decode!() do
+      %{"message" => "List is archived, can't update its title"} = response ->
+        {:noreply,
+          socket
+          |> put_flash(:error, response["message"])
+          |> push_patch(to: socket.assigns.patch)}
+
       %{"list" => list} ->
         list = convert_map(list)
         notify_parent({:saved, list})
