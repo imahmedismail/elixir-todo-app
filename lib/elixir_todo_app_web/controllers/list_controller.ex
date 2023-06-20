@@ -26,6 +26,7 @@ defmodule ElixirTodoAppWeb.ListController do
 
   def update(conn, %{"id" => id, "list" => list_params}) do
     list = Lists.get_list(id)
+
     cond do
       is_nil(list) ->
         conn

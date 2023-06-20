@@ -4,6 +4,7 @@ defmodule ElixirTodoAppWeb.ItemController do
 
   def index(conn, %{"list_id" => list_id}) do
     items = Items.list_all(list_id)
+
     conn
     |> put_resp_content_type("application/json")
     |> json(%{items: items})

@@ -22,7 +22,12 @@
   </:action>
 </.table>
 
-<.modal :if={@live_action in [:new, :edit]} id="list-modal" show on_cancel={JS.patch(~p"/todo/list")}>
+<.modal
+  :if={@live_action in [:new, :edit]}
+  id="list-modal"
+  show
+  on_cancel={JS.patch(~p"/todo/list")}
+>
   <.live_component
     module={ElixirTodoAppWeb.ListLive.FormComponent}
     id={@list.id || :new}

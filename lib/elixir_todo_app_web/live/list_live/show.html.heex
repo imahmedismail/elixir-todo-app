@@ -29,7 +29,12 @@
 
 <.back navigate={~p"/todo/list"}>Back to list</.back>
 
-<.modal :if={@live_action == :edit} id="list-modal" show on_cancel={JS.patch(~p"/todo/list/#{@list}")}>
+<.modal
+  :if={@live_action == :edit}
+  id="list-modal"
+  show
+  on_cancel={JS.patch(~p"/todo/list/#{@list}")}
+>
   <.live_component
     module={ElixirTodoAppWeb.ListLive.FormComponent}
     id={@list.id}

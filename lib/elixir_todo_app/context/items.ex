@@ -4,8 +4,8 @@ defmodule ElixirTodoApp.Items do
   import Ecto.Query
 
   def list_all(todo_list_id) do
-   from(item in Item, where: item.todo_list_id == ^todo_list_id)
-   |> Repo.all()
+    from(item in Item, where: item.todo_list_id == ^todo_list_id)
+    |> Repo.all()
   end
 
   def get_item(id) do

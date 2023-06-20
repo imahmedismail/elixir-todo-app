@@ -9,7 +9,7 @@ defmodule ElixirTodoApp.Cleanup do
 
   def init(state) do
     # This will run after 5 minute, and will perform the desired task
-    :timer.send_interval(300000, :work)
+    :timer.send_interval(300_000, :work)
     {:ok, state}
   end
 
@@ -18,7 +18,8 @@ defmodule ElixirTodoApp.Cleanup do
 
     from(list in List,
       where: not is_nil(list.updated_at) and list.updated_at <= ^cutoff_time and not list.archived
-    ) |> Repo.update_all(set: [archived: true])
+    )
+    |> Repo.update_all(set: [archived: true])
 
     {:noreply, state}
   end
