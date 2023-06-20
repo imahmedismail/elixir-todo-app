@@ -2,6 +2,8 @@ defmodule ElixirTodoApp.Item do
   use Ecto.Schema
   import Ecto.Changeset
 
+  @derive {Jason.Encoder, only: [:id, :content, :completed, :todo_list_id, :inserted_at, :updated_at]}
+
   schema "todo_items" do
     field :content, :string
     field :completed, :boolean, default: false
