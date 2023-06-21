@@ -23,7 +23,7 @@ defmodule ElixirTodoAppWeb.ListLive.FormComponent do
         phx-submit="save"
       >
         <.input field={@form[:title]} type="text" label="Title" />
-        <.input field={@form[:archived]} type="checkbox" label="Archived" />
+        <.input field={@form[:archived]} type="checkbox" label="Archived (OPTIONAL)" />
         <:actions>
           <.button phx-disable-with="Saving...">Save List</.button>
         </:actions>

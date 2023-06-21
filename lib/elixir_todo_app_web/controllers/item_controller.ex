@@ -28,7 +28,7 @@ defmodule ElixirTodoAppWeb.ItemController do
         case Items.create_item(list_id, item_params) do
           {:ok, item} ->
             conn
-            |> put_status(:created)
+            |> put_resp_content_type("application/json")
             |> json(%{item: item})
 
           {:error, changeset} ->
@@ -63,7 +63,7 @@ defmodule ElixirTodoAppWeb.ItemController do
         case Items.update_item(item, item_params) do
           {:ok, updated_item} ->
             conn
-            |> put_status(:ok)
+            |> put_resp_content_type("application/json")
             |> json(%{item: updated_item})
 
           {:error, changeset} ->

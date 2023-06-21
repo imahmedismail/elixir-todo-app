@@ -32,6 +32,8 @@ defmodule ElixirTodoAppWeb.Router do
 
     live "/list/:id", ListLive.Show, :show
     live "/list/:id/show/edit", ListLive.Show, :edit
+    live "/list/:id/item/new", ListLive.Show, :new_item
+    live "/list/:id/item/edit", ListLive.Show, :edit_item
   end
 
   # Other scopes may use custom stacks.

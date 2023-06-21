@@ -11,19 +11,12 @@
   </:actions>
 </.header>
 
-<.table
-  id="item"
-  rows={@streams.item_collection}
-  row_click={fn {_id, item} -> JS.navigate(~p"/todo/list/#{item.id}") end}
->
+<.table id="item" rows={@streams.item_collection}>
   <:col :let={{_id, item}} label="List ID"><%= item.todo_list_id %></:col>
   <:col :let={{_id, item}} label="Content"><%= item.content %></:col>
   <:col :let={{_id, item}} label="Is Completed?"><%= item.completed %></:col>
   <:action :let={{_id, item}}>
-    <div class="sr-only">
-      <.link navigate={~p"/todo/list/#{item.id}"}>Show</.link>
-    </div>
-    <.link patch={~p"/todo/list/#{item.id}/edit"}>Edit</.link>
+    <.link patch={~p"/todo/list/#{item.id}/item/edit"}>Edit</.link>
   </:action>
 </.table>
 
@@ -41,6 +34,23 @@
     title={@page_title}
     action={@live_action}
     list={@list}
+    patch={~p"/todo/list/#{@list}"}
+  />
+</.modal>
+
+<.modal
+  :if={@live_action in [:new_item, :edit_item]}
+  id="item-modal"
+  show
+  on_cancel={JS.patch(~p"/todo/list/#{@list}")}
+>
+  <.live_component
+    module={ElixirTodoAppWeb.ListLive.ItemComponent}
+    id={@item.id || :new_item}
+    title={@page_title}
+    action={@live_action}
+    list={@list}
+    item={@item}
     patch={~p"/todo/list/#{@list}"}
   />
 </.modal>

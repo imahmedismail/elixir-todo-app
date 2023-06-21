@@ -1,11 +1,11 @@
 defmodule ElixirTodoAppWeb.ListLive.Show do
   use ElixirTodoAppWeb, :live_view
   import ElixirTodoAppWeb.Utils
-  alias ElixirTodoApp.{Lists, TeslaClient}
+  alias ElixirTodoApp.{Item, Items, Lists, TeslaClient}
   @item_base_url "http://localhost:4000/api/lists"
 
   @impl true
-  def mount(%{"id" => list_id} = params, _session, socket) do
+  def mount(%{"id" => list_id} = _params, _session, socket) do
     response =
       TeslaClient.get_request(@item_base_url <> "/#{list_id}/items").body |> Jason.decode!()
 
@@ -13,13 +13,41 @@ defmodule ElixirTodoAppWeb.ListLive.Show do
   end
 
   @impl true
-  def handle_params(%{"id" => id}, _, socket) do
-    {:noreply,
-     socket
-     |> assign(:page_title, page_title(socket.assigns.live_action))
-     |> assign(:list, Lists.get_list(id))}
+  def handle_params(params, _, socket) do
+    {:noreply, apply_action(socket, socket.assigns.live_action, params)}
   end
 
-  defp page_title(:show), do: "Show List"
-  defp page_title(:edit), do: "Edit List"
+  @impl true
+  def handle_info({ElixirTodoAppWeb.ListLive.ItemComponent, {:saved_list, list}}, socket) do
+    {:noreply, assign(socket, :list, list)}
+  end
+
+  @impl true
+  def handle_info({ElixirTodoAppWeb.ListLive.ItemComponent, {:saved_item, item}}, socket) do
+    {:noreply, stream_insert(socket, :item_collection, item)}
+  end
+
+  defp apply_action(socket, :new_item, _params) do
+    socket
+    |> assign(:page_title, "New Item")
+    |> assign(:item, %Item{})
+  end
+
+  defp apply_action(socket, :edit_item, %{"id" => id}) do
+    socket
+    |> assign(:page_title, "Edit Item")
+    |> assign(:item, Items.get_item(id))
+  end
+
+  defp apply_action(socket, :show, %{"id" => id}) do
+    socket
+    |> assign(:page_title, "Items Listing")
+    |> assign(:list, Lists.get_list(id))
+  end
+
+  defp apply_action(socket, :edit, %{"id" => id}) do
+    socket
+    |> assign(:page_title, "Edit List")
+    |> assign(:list, Lists.get_list(id))
+  end
 end
