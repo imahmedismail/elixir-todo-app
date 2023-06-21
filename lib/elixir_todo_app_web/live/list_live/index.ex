@@ -38,12 +38,4 @@ defmodule ElixirTodoAppWeb.ListLive.Index do
   def handle_info({ElixirTodoAppWeb.ListLive.FormComponent, {:saved, list}}, socket) do
     {:noreply, stream_insert(socket, :list_collection, list)}
   end
-
-  @impl true
-  def handle_event("delete", %{"id" => id}, socket) do
-    list = Lists.get_list!(id)
-    {:ok, _} = Lists.delete_list(list)
-
-    {:noreply, stream_delete(socket, :list_collection, list)}
-  end
 end

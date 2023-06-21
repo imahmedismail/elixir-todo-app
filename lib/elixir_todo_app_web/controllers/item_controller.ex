@@ -31,7 +31,7 @@ defmodule ElixirTodoAppWeb.ItemController do
             |> put_resp_content_type("application/json")
             |> json(%{item: item})
 
-          {:error, changeset} ->
+          {:error, _changeset} ->
             conn
             |> put_resp_content_type("application/json")
             |> json(%{message: "Unidentified error"})
@@ -39,7 +39,7 @@ defmodule ElixirTodoAppWeb.ItemController do
     end
   end
 
-  def update(conn, %{"list_id" => list_id, "id" => id, "item" => item_params} = params) do
+  def update(conn, %{"list_id" => list_id, "id" => id, "item" => item_params} = _params) do
     item = Items.get_item(id)
     list = Lists.get_list(list_id)
 
@@ -66,7 +66,7 @@ defmodule ElixirTodoAppWeb.ItemController do
             |> put_resp_content_type("application/json")
             |> json(%{item: updated_item})
 
-          {:error, changeset} ->
+          {:error, _changeset} ->
             conn
             |> put_resp_content_type("application/json")
             |> json(%{message: "Unidentified error"})
