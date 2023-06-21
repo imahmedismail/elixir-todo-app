@@ -84,6 +84,12 @@ defmodule ElixirTodoAppWeb.ListLive.FormComponent do
   defp save_list(socket, :new, list_params) do
     case HttpoisonClient.post_request(@lists_base_url, %{"list" => list_params})
          |> Jason.decode!() do
+      %{"message" => "Unidentified error"} ->
+        {:noreply,
+         socket
+         |> put_flash(:error, "Title is required to create a list")
+         |> push_patch(to: socket.assigns.patch)}
+
       %{"list" => list} ->
         list = convert_map(list)
         notify_parent({:saved, list})
