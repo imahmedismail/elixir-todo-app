@@ -27,6 +27,11 @@ defmodule ElixirTodoAppWeb.ListLive.Show do
     {:noreply, stream_insert(socket, :item_collection, item)}
   end
 
+  @impl true
+  def handle_info({ElixirTodoAppWeb.ListLive.FormComponent, {:saved, list}}, socket) do
+    {:noreply, assign(socket, :list, list)}
+  end
+
   defp apply_action(socket, :new_item, _params) do
     socket
     |> assign(:page_title, "New Item")
