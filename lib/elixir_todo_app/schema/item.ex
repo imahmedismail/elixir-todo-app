@@ -8,7 +8,8 @@ defmodule ElixirTodoApp.Item do
   schema "todo_items" do
     field :content, :string
     field :completed, :boolean, default: false
-    field :todo_list_id, :integer
+
+    belongs_to :todo_lists, ElixirTodoApp.Item, foreign_key: :todo_list_id
     timestamps()
   end
 

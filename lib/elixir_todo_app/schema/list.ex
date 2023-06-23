@@ -7,6 +7,8 @@ defmodule ElixirTodoApp.List do
   schema "todo_lists" do
     field :title, :string
     field :archived, :boolean, default: false
+
+    has_many :todo_items, ElixirTodoApp.Item, foreign_key: :todo_list_id
     timestamps()
   end
 
