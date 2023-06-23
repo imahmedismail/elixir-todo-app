@@ -22,17 +22,19 @@ defmodule ElixirTodoAppWeb.Router do
     end
   end
 
-  scope "/todo", ElixirTodoAppWeb do
+  scope "/", ElixirTodoAppWeb do
     pipe_through :browser
 
-    live "/list", ListLive.Index, :index
-    live "/list/new", ListLive.Index, :new
-    live "/list/:id/edit", ListLive.Index, :edit
+    get "/", RedirectController, :index
 
-    live "/list/:id", ListLive.Show, :show
-    live "/list/:id/show/edit", ListLive.Show, :edit
-    live "/list/:id/item/new", ListLive.Show, :new_item
-    live "/list/:id/item/edit", ListLive.Show, :edit_item
+    live "/todo/list", ListLive.Index, :index
+    live "/todo/list/new", ListLive.Index, :new
+    live "/todo/list/:id/edit", ListLive.Index, :edit
+
+    live "/todo/list/:id", ListLive.Show, :show
+    live "/todo/list/:id/show/edit", ListLive.Show, :edit
+    live "/todo/list/:id/item/new", ListLive.Show, :new_item
+    live "/todo/list/:id/item/edit", ListLive.Show, :edit_item
   end
 
   # Other scopes may use custom stacks.

@@ -1,6 +1,6 @@
 defmodule ElixirTodoAppWeb.ListController do
   use ElixirTodoAppWeb, :controller
-  alias ElixirTodoApp.{Lists, List}
+  alias ElixirTodoApp.Lists
 
   def index(conn, _params \\ %{}) do
     lists = Lists.list_all()
@@ -17,7 +17,7 @@ defmodule ElixirTodoAppWeb.ListController do
         |> put_resp_content_type("application/json")
         |> json(%{list: list})
 
-      {:error, changeset} ->
+      {:error, _changeset} ->
         conn
         |> put_resp_content_type("application/json")
         |> json(%{message: "Unidentified error"})
@@ -45,7 +45,7 @@ defmodule ElixirTodoAppWeb.ListController do
             |> put_resp_content_type("application/json")
             |> json(%{list: updated_list})
 
-          {:error, changeset} ->
+          {:error, _changeset} ->
             conn
             |> put_resp_content_type("application/json")
             |> json(%{message: "Unidentified error"})
