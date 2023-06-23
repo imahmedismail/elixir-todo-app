@@ -1,5 +1,5 @@
 <.header>
-  List <%= @list.id %>
+  List <%= @list.title %>
   <:subtitle>You can add list items and manage them here</:subtitle>
   <:actions>
     <.link patch={~p"/todo/list/#{@list}/show/edit"} phx-click={JS.push_focus()}>
